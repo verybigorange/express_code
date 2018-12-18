@@ -6,6 +6,11 @@ var express = require('../../lib/express');
 
 var app = express();
 
+app.use('/api',function(req,res,next){
+  console.log(req);
+  console.log(res);
+  next();
+})
 // Example requests:
 //     curl http://localhost:3000/user/0
 //     curl http://localhost:3000/user/0/edit
@@ -79,6 +84,11 @@ app.get('/user/:id/edit', loadUser, andRestrictToSelf, function(req, res){
 
 app.delete('/user/:id', loadUser, andRestrictTo('admin'), function(req, res){
   res.send('Deleted user ' + req.user.name);
+});
+
+app.get('/api', function(req, res){
+  console.log(req)
+  res.send('api');
 });
 
 /* istanbul ignore next */
